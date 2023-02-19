@@ -4,7 +4,35 @@ const PipeRoute = express.Router();
 
 const Pipe = require('../models/pipe.model');
 const Enrolled = require('../models/Enrolled.model');
+const Module = require('../models/Module.model');
 
+
+PipeRoute.route('/module').post((req, res, next) => {
+    Module.create(req.body, (error, data) => {
+        if (error) {
+            return next(error);
+        }
+        res.json(data);
+    });
+});
+
+PipeRoute.route('/module').get((req, res, next) => {
+    Module.find({}, (error, data) => {
+        if (error) {
+            return next(error);
+        }
+        res.json(data);
+    });
+});
+
+PipeRoute.route('/module/:id').delete((req, res, next) => {
+    Module.findByIdAndRemove(req.params.id, (error, data) => {
+        if (error) {
+            return next(error);
+        }
+        res.json(data);
+    });
+});
 
 
 PipeRoute.route('/enrolled').get((req, res, next) => {
